@@ -1,0 +1,11 @@
+# dictionaries
+*.dic  
+*.dicx
+SentiLex-lem-PT02.txt
+
+# arquivos csv/xlsx
+arquivos_formatados.csv
+candidatos_2022.xlsx
+
+.venv
+candidatos_2022.xlsx
