@@ -5,20 +5,17 @@
 
 ### Sobre este trabalho:
 
-1. Importância da Mineração de Textos
-    * Aplicações inovadoras e cruciais nas áreas de administração de empresas e ciências políticas.
-    * Redução de custos de análise de grandes volumes de discursos.
-
-2. Metodologia 
+1. Metodologia 
     * Utilização de abordagem baseada em dicionário.
     * Seleção dos quatro candidatos mais expressivos em intenções de votos para análise.
 
-3. Resultados e Discussões
+2. Resultados e Discussões
     * Semelhanças e diferenças nas escolhas lexicais entre os candidatos.
-    * Estudo da polaridade dos discursos e sua relação com o contexto de realização.
+    * Estudo da polaridade dos discursos e sua relação com o contexto do discurso.
 
-4. Conclusões
+3. Conclusões
     * Identificação de aspectos da escolha lexical, polaridade e opiniões nos discursos.
+    * Aplicações inovadoras e cruciais nas áreas de administração de empresas e ciências políticas.
     * Potencial da análise de sentimentos em outras áreas, como a interação cliente-consumidor no marketing
 
 --------------------------------------------------------------------------
