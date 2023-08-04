@@ -10,7 +10,6 @@ def percentual_term_frequency(df, words_column, separation, new_column_name, sep
     ''' 
 
     df1 = df.copy()
- 
     if separation_2 == None: # 1 categoria
 
         # encontrar o total de palavras por cada nome_separador 
@@ -22,7 +21,6 @@ def percentual_term_frequency(df, words_column, separation, new_column_name, sep
 
         # criação de lista de frequência palavra ao nível do nome_separador 
         for i in set(df1[separation]):
-
             frequency = list(df1[(df1[separation] == i)][words_column].value_counts() / palavra_por_candidato.loc[i][0])
             candidato = [i] * len(frequency)
             lemma_df = list(df1[(df1[separation] == i)][words_column].value_counts().index)
@@ -51,30 +49,24 @@ def percentual_term_frequency(df, words_column, separation, new_column_name, sep
         list_evento2 = [] #importa ordem
 
         for i in set(df1[separation]):
-
             list_freq = [] # importa ordem
             list_lemma = [] # Importa ordem 
             list_evento = [] # importa ordem
 
             palavra_por_entrevista = df1[(df1[separation] == i)].groupby(separation_2)[separation].count()
-
             for j in set(df1[(df1[separation] == i)][separation_2]):
-
                 frequency = list(df1[(df1[separation] == i) & (df1[separation_2] == j)][words_column].value_counts()/palavra_por_entrevista[j])
                 lemma_df1 = list(df1[(df1[separation] == i) & (df1[separation_2] == j)][words_column].value_counts().index)
                 evento = [j] * len(lemma_df1)
                 
-                # adiciona a lista
-                list_lemma.append(lemma_df1)
+                list_lemma.append(lemma_df1) # adiciona a lista
                 list_freq.append(frequency)
                 list_evento.append(evento)
-
+                
             candidato = [i] * len(flatten(list_lemma))
 
-            # adiciona a lista
-            list_lemma2.append(flatten(list_lemma))
+            list_lemma2.append(flatten(list_lemma))  # adiciona a lista
             list_freq2.append(flatten(list_freq)) 
-            
             list_evento2.append(flatten(list_evento))
             list_candidato2.append(candidato)
 
@@ -99,12 +91,11 @@ def inverse_document_frequency(df, words_column, separation, new_column_name, se
     '''
 
     df1 = df.copy()
-
     if separation_2 == None:     # 1 categoria
 
         list_lemma1 = []
+        
         for i in set(df1[separation]):
-
             df_sem_duplicadas = df1[(df1[separation] == i)].drop_duplicates(words_column)
             list_lemma = list(df_sem_duplicadas[words_column].values)
             list_lemma1.append(list_lemma)
@@ -129,12 +120,10 @@ def inverse_document_frequency(df, words_column, separation, new_column_name, se
         list_lemma2 =  []
         list_candidato2 = []
         list_idf2 = []
-
         for i in set(df1[separation]):
 
             list_evento = [] # não importa ordem
             list_lemma = [] 
-
             for j in set(df1[separation_2]):
                     a = df1[(df1[separation] == i) & (df1[separation_2] == j)].drop_duplicates(words_column)
                     lemma_df1 = list(a[words_column].values)
@@ -148,7 +137,6 @@ def inverse_document_frequency(df, words_column, separation, new_column_name, se
                             columns =[separation_2, separation, words_column])
 
             # encontra-se a quantidade de palavras em cada documento e ln(quant. docs/ freq. palavras)
-
             idf_values = np.log(len(set(flatten(list_evento))) / all_events.value_counts(words_column))
             lemma2 = list(idf_values.index)
             candidato2 = len(lemma2) * [i]

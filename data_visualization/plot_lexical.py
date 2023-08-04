@@ -9,13 +9,11 @@ import nltk
 import util
 import data_visualization.colors as co
 
-
 # global variables 
 dicionario = 'score_liwc2015'
 
-
 def get_frequency(df_candidato, token_column, lista_destaques=[], color_destaque='k', n=15, y_subtitle=0.955):
-
+    '''retorna gráfico das palavras mais utilizadas'''
 
     freq_dist = nltk.FreqDist(util.objeto_nltk(df_candidato, token_column))
     pd_freq_dist = pd.DataFrame(list(zip(list(freq_dist.keys()), list(freq_dist.values()))),
@@ -42,7 +40,6 @@ def get_frequency(df_candidato, token_column, lista_destaques=[], color_destaque
     ax.barh(y_int, width=width, height=height, color=color)
     ax.set_yticks(y_int)
     ax.set_yticklabels(labels, color=color)
-
 
     # definição da cor para xlabel, para o rotulo dos dados e a barra (bottom spine)
     ax.set_xlabel('Frequência absoluta', color=co.gray_8, loc='left')
@@ -155,36 +152,30 @@ def create_subplot(candidato, color, dfcandidato, title_color, num_palavras, axe
 
     axes.set_title(str.capitalize(candidato), loc='left', color=title_color)
     
-    # axes
 
 def highlight_important_words(dfcandidato, candidatos, num_palavras=10):
-    '''Gráfico das palavras mais importantes dos 4 candidatos'''
+    '''Gráfico das palavras mais importantes dos 4 candidatos  de acordo com tf_idf'''
+
     fig, axes = plt.subplots(2,2,figsize=(10,8))
-
     fig.suptitle('Palavras mais importantes por candidato', fontsize=13, fontweight='bold', y=0.960, x=0.315)
+ 
 
-
-    # define as palavras mais importantes de acordo com tf*idf por candidato
     # [0,0]
-
     color = 'Greens'
     title_color = co.c_bolsonaro
     create_subplot(candidatos[0], color, dfcandidato, title_color, num_palavras, axes[0,0])
 
     # [0,1]
-    position = [0,1]
     color = 'Reds'
     title_color = co.c_lula
     create_subplot(candidatos[1], color, dfcandidato, title_color, num_palavras, axes[0,1])
 
     # [1,0]
-    position = [1,0]
     color = 'Blues'
     title_color = co.c_ciro
     create_subplot(candidatos[2], color, dfcandidato, title_color, num_palavras, axes[1,0])
 
     # [1,1]
-    position = [1,1]
     color = 'YlOrBr'
     title_color = co.c_tebet
     create_subplot(candidatos[3], color, dfcandidato, title_color, num_palavras, axes[1,1])
@@ -224,6 +215,8 @@ def create_subplot_2(entrevista, color, dfcandidato, num_palavras, axes):
     axes.yaxis.set_tick_params(length=0)
     axes.xaxis.set_tick_params(color=co.gray_42)
 
+    axes.tick_params(axis='y', colors='grey')
+    
     axes.set_title(entrevista,fontsize=10.7, loc='left')
 
 def highlight_words_interview(dfcandidato, color, num_palavras=10):
@@ -234,31 +227,22 @@ def highlight_words_interview(dfcandidato, color, num_palavras=10):
     fig, axes = plt.subplots(2,2,figsize=(10,8))
 
     # [0,0]
-    position = [0,0]
     create_subplot_2(entrevistas[0], color, dfcandidato, num_palavras, axes[0,0])
 
     # [0,1]
-    position = [0,1]
     create_subplot_2(entrevistas[1], color, dfcandidato, num_palavras, axes[0,1])
 
     # [1,0]
-    position = [1,0]
     create_subplot_2(entrevistas[2], color, dfcandidato, num_palavras, axes[1,0])
 
     # [1,1]
-    position = [1,1]
     create_subplot_2(entrevistas[3], color, dfcandidato, num_palavras, axes[1,1])
-
-    axes[0,0].tick_params(axis='y', colors='grey')
-    axes[1,0].tick_params(axis='y', colors='grey')
-    axes[0,1].tick_params(axis='y', colors='grey')
-    axes[1,1].tick_params(axis='y', colors='grey')
 
     axes[1,0].set_ylabel('Inverse Document Frequency x Term Frequency', labelpad=12, color='grey')
 
     plt.subplots_adjust(wspace=.35, hspace=0.65)
-
     fig.suptitle('Palavras mais importantes por entrevista: '+nome, fontsize=13, fontweight='bold', y=0.960, x=0.425)
+    
     plt.show()    
 
 

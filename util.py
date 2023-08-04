@@ -1,7 +1,6 @@
 import nltk
 import numpy as np
 
-
 def objeto_nltk(df_candidato,col):
     '''conversão tokens[dataframe] em text NLTK'''
     candidato = nltk.Text(list(df_candidato[col]))

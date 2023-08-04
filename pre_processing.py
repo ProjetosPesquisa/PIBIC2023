@@ -32,11 +32,9 @@ def get_files_tokens(folder, instrucoes):
 
 
 class Pre_processing():
-    
     """Pré processamento dos dados"""
   
     def __init__(self, dataframe, tokens_column_name, refined_column = None): 
-
        self.df = dataframe.copy()
        self.tokens = tokens_column_name
        self.df_refined = refined_column
@@ -45,7 +43,6 @@ class Pre_processing():
     def remove_stopwords(self):
       'remoção de stopwords'
       stopwords = nltk.corpus.stopwords.words('portuguese')
-      
       for palavra in stopwords:
          self.df.loc[(self.df[self.tokens].values == palavra)] = np.nan
 
@@ -53,7 +50,6 @@ class Pre_processing():
 
     def remove_unnecessarywords(self):
       'remoção de outras palavras desnecessárias'
-
       unwords = ['senhor','senhora','música', ',','[',']',"né","lá","aí",
                 "aplausos","`",'vai', "g1", 'sao',"tá", "ta", "gente",
                 "porque","sabe","vou","então", 'ter', 'coisa', 'tô',
@@ -76,7 +72,6 @@ class Pre_processing():
       'supremo':'supremo_tribunal', 'emergencial':'auxílio_emergencial', 'petrobra': 'petrobras', 'pic':'pix',
       'tef':'stf', 'stef':'stf','i2022':'2022','dpt':'pt'}
       replaced_list = list(replaced_dict.keys())
-
       for palavra in replaced_list:
          self.df.loc[(self.df[self.tokens].values == palavra), self.tokens] = replaced_dict.get(palavra) 
       
@@ -89,7 +84,7 @@ class Pre_processing():
     
 
 def process_tokens(arquivos):
-    '''limpeza de dados'''
+    '''remoção de stopwords, normalização e substituição de palavras'''
     arquivos = arquivos.copy()
     arquivos['tokens'] = arquivos['tokens'].apply(lambda x: x.lower())
 
@@ -98,7 +93,6 @@ def process_tokens(arquivos):
     arquivo_modified.replace_words()
     arquivo_modified.remove_unnecessarywords()
     arquivos['tokens'] = arquivo_modified.column_refined()
-
     arquivos.dropna(inplace=True)
     arquivos.reset_index(drop=True, inplace=True)
     
@@ -120,11 +114,10 @@ def read_liwc(file):
     negemo = liwc['negemo'].values
     liwc['score_liwc2015'] = np.where(posemo == 'X', 1, 0) + np.where(negemo == 'X', -1, 0)
 
-    # alteração da ordem das colunas 
-    cols = list(liwc.columns)
+    cols = list(liwc.columns) # alteração da ordem das colunas 
     cols.reverse()
     liwc = liwc[cols]
-
+    
     liwc.drop(['posemo','negemo'],axis=1, inplace=True)
     
     return liwc

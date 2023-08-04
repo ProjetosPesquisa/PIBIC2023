@@ -18,22 +18,21 @@ def polarity_score(p_table):
     candidatos = [str.capitalize(x) for x in p_table.index.values]
 
     y_pos = np.arange(len(candidatos))
-
     x = p_table[dicionario].values
 
     bar = ax.barh(y_pos,x)
 
-    ax.get_children()[2].set_color(co.c_tebet1)
+    ax.get_children()[2].set_color(co.c_tebet1) # definição de cor do gráfico no subplot
     ax.get_children()[3].set_color(co.c_lula)
     ax.get_children()[0].set_color(co.c_bolsonaro)
     ax.get_children()[1].set_color(co.c_ciro)
 
-    ax.set_yticks(y_pos)
+    ax.set_yticks(y_pos) # rotulo dos dados
     ax.set_yticklabels(candidatos, weight='bold')
 
     colors=[co.c_bolsonaro, co.c_ciro, co.c_tebet1, co.c_lula]
     for color,tick in zip(colors,ax.yaxis.get_major_ticks()):
-        tick.label1.set_color(color) #define a propriedade da cor
+        tick.label1.set_color(color) # definição da cor do titulo
 
     ax.xaxis.set_major_formatter(mtick.NullFormatter())
 
@@ -48,7 +47,7 @@ def polarity_score(p_table):
     ax.spines['left'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
 
-    # remover linha que indica label no eixo y
+    # remoção linha que indica label no eixo y
     ax.yaxis.set_tick_params(length=0)
     ax.xaxis.set_tick_params(length=0)
 
@@ -79,7 +78,7 @@ def subplot_polarity(candidato,color, interview_score_polarity, axes):
     # definição de cor
     axes.xaxis.set_tick_params(labelcolor=co.gray_9)
 
-    # remover linha que indica label no eixo y
+    # remoção linha que indica label no eixo y
     axes.yaxis.set_tick_params(length=0)
 
     # cor eixo  y    
@@ -121,7 +120,7 @@ def text_polarity_trend(titulo, df_texto):
     ax.spines['left'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
 
-    # remover linha que indica label no eixo y
+    # remoção linha que indica label no eixo y
     ax.yaxis.set_tick_params(length=0)
     ax.xaxis.set_tick_params(length=0)
 
@@ -149,6 +148,7 @@ def get_opinion(count_opinion_words, opinions, multi, titulo, destaque='none'):
 
     fig, ax = plt.subplots(figsize=(8,6))
 
+    # configuração de cor e distancia entre barras
     width_position = 0
     width = 0.45
     color_cmap = 0.4
@@ -172,7 +172,6 @@ def get_opinion(count_opinion_words, opinions, multi, titulo, destaque='none'):
     handles, labels = ax.get_legend_handles_labels()
     ax.legend(handles[::-1], labels[::-1], loc='best')
 
-    # ax.set_xlim(xmin=0,xmax=400 )
     cmap = plt.get_cmap('Greys')
     gray_8 = cmap(0.88)
     ax.set_xlabel('Frequência relativa', color=gray_8, loc='left')
